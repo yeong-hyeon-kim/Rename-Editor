@@ -9,7 +9,8 @@ namespace Rename_Editor
 {
     public partial class Editor : Form
     {
-        OpenFileDialog dialog = new OpenFileDialog();
+        FolderBrowserDialog FbDialog = new FolderBrowserDialog();
+
         public Editor()
         {
             InitializeComponent();
@@ -19,11 +20,11 @@ namespace Rename_Editor
         {
             try
             {
-                dialog.ShowDialog();
+                FbDialog.ShowDialog();
 
-                if (string.IsNullOrEmpty(dialog.FileName))
+                if (!string.IsNullOrEmpty(FbDialog.SelectedPath))
                 {
-                    txt_folder_pt.Text = dialog.FileName;
+                    txt_folder_pt.Text = FbDialog.SelectedPath;
                 }
             }
             catch (Exception ex)
@@ -37,11 +38,11 @@ namespace Rename_Editor
         {
             try
             {
-                dialog.ShowDialog();
+                FbDialog.ShowDialog();
 
-                if (string.IsNullOrEmpty(dialog.FileName))
+                if (!string.IsNullOrEmpty(FbDialog.SelectedPath))
                 {
-                    text_Folder_Path.Text = dialog.FileName;
+                    text_Folder_Path.Text = FbDialog.SelectedPath;
 
                     DirectoryInfo DirInfo = new DirectoryInfo(text_Folder_Path.Text);
                     List<string> ExtensionList = new List<string>();
