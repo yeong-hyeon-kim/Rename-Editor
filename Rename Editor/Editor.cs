@@ -17,6 +17,7 @@ namespace Rename_Editor
         }
 
         #region ReName
+
         private void BtnOpenRenamePath_Click(object sender, EventArgs e)
         {
             try
@@ -101,6 +102,7 @@ namespace Rename_Editor
         #endregion
 
         #region CopyName
+
         private void BtnOpenCopyPath_Click(object sender, EventArgs e)
         {
             try
@@ -139,9 +141,6 @@ namespace Rename_Editor
                 MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        #endregion
-
         private void BtnCopyNameExecution_Click(object sender, EventArgs e)
         {
             try
@@ -193,5 +192,8 @@ namespace Rename_Editor
                 MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        #endregion
+
     }
 }
