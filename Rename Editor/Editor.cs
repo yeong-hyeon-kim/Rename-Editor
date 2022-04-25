@@ -109,9 +109,9 @@ namespace Rename_Editor
                         {
                             string ReplaceString = string.Empty;
                             ReplaceString = files.Name.Substring(Int32.Parse(txt_start_index.Text), Int32.Parse(txt_end_index.Text));
-                            
+
                             // 특정 문자열 인덱스를 범위를 직접 조절하여 교체
-                            File.Move(files.FullName, files.DirectoryName + "\\" + files.Name.Replace(ReplaceString,""));
+                            File.Move(files.FullName, files.DirectoryName + "\\" + files.Name.Replace(ReplaceString, ""));
                         }
                     }
                     else if (rbtn_index_mode.Checked)
