@@ -4,5 +4,5 @@
 <hr>
 
 ## Develop Environment
-* Visual Studio 2019
-* .NET 5.01
+* Visual Studio 2022
+* .NET 5
