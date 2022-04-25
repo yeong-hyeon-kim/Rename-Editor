@@ -16,7 +16,8 @@ namespace Rename_Editor
             InitializeComponent();
         }
 
-        private void btn_open_dg_Click(object sender, EventArgs e)
+        #region ReName
+        private void BtnOpenRenamePath_Click(object sender, EventArgs e)
         {
             try
             {
@@ -33,47 +34,7 @@ namespace Rename_Editor
             }
 
         }
-
-        private void btn_Open_Folder_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                FbDialog.ShowDialog();
-
-                if (!string.IsNullOrEmpty(FbDialog.SelectedPath))
-                {
-                    text_Folder_Path.Text = FbDialog.SelectedPath;
-
-                    DirectoryInfo DirInfo = new DirectoryInfo(text_Folder_Path.Text);
-                    List<string> ExtensionList = new List<string>();
-
-                    lb_FlieList.Items.Clear();
-
-                    foreach (var Files in DirInfo.GetFiles())
-                    {
-                        lb_FlieList.Items.Add(Files);
-                        ExtensionList.Add(Files.Extension.ToString());
-                    }
-
-                    ExtensionList = ExtensionList.Distinct<string>().ToList();
-
-                    cmb_Source_Extension.Items.Clear();
-                    cmb_Target_Extension.Items.Clear();
-
-                    foreach (var item in ExtensionList)
-                    {
-                        cmb_Source_Extension.Items.Add(item);
-                        cmb_Target_Extension.Items.Add(item);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btn_execute_Click(object sender, EventArgs e)
+        private void BtnRenameExecution_Click(object sender, EventArgs e)
         {
             try
             {
@@ -137,12 +98,55 @@ namespace Rename_Editor
             }
         }
 
-        private void btn_Name_Match_Click(object sender, EventArgs e)
+        #endregion
+
+        #region CopyName
+        private void BtnOpenCopyPath_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FbDialog.ShowDialog();
+
+                if (!string.IsNullOrEmpty(FbDialog.SelectedPath))
+                {
+                    text_Folder_Path.Text = FbDialog.SelectedPath;
+
+                    DirectoryInfo DirInfo = new DirectoryInfo(text_Folder_Path.Text);
+                    List<string> ExtensionList = new List<string>();
+
+                    lb_FlieList.Items.Clear();
+
+                    foreach (var Files in DirInfo.GetFiles())
+                    {
+                        lb_FlieList.Items.Add(Files);
+                        ExtensionList.Add(Files.Extension.ToString());
+                    }
+
+                    ExtensionList = ExtensionList.Distinct<string>().ToList();
+
+                    cmb_Source_Extension.Items.Clear();
+                    cmb_Target_Extension.Items.Clear();
+
+                    foreach (var item in ExtensionList)
+                    {
+                        cmb_Source_Extension.Items.Add(item);
+                        cmb_Target_Extension.Items.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #endregion
+
+        private void BtnCopyNameExecution_Click(object sender, EventArgs e)
         {
             try
             {
                 DirectoryInfo DirInfo = new DirectoryInfo(text_Folder_Path.Text);
-
                 Dictionary<string, string> FileMap = new Dictionary<string, string>();
 
                 List<string> SourceList = new List<string>();
