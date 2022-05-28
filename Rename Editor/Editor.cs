@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Rename_Editor
@@ -195,5 +197,68 @@ namespace Rename_Editor
 
         #endregion
 
+        private void BtnOpenMergeFolder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FbDialog.ShowDialog();
+
+                if (!string.IsNullOrEmpty(FbDialog.SelectedPath))
+                {
+                    TextParentFolderPath.Text = FbDialog.SelectedPath;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnMergeFolder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ListMerge.Items.Clear();
+
+                // 메인 디렉토리
+                DirectoryInfo DirInfo = new DirectoryInfo(TextParentFolderPath.Text);
+                // 하위(파일 분류 폴더) 디렉토리
+                DirectoryInfo[] SubDirList = DirInfo.GetDirectories();
+
+                Parallel.ForEach(DirInfo.GetDirectories(), PrantFolder =>
+                {
+                    DirectoryInfo SubDirInfo = new(PrantFolder.FullName);
+                    // 카테고리, 챕터 별 폴더
+                    Parallel.ForEach(SubDirInfo.GetDirectories(), Folders =>
+                    {
+                        DirectoryInfo SubSubDirInfo = new(Folders.FullName);
+
+                        // 카테고리, 챕터 내 파일
+                        Parallel.ForEach(SubSubDirInfo.GetFiles(), Files =>
+                        {
+                            Debug.WriteLine(Files.FullName);
+                            // 파일 분류 폴더로 이동
+                            File.Move(Files.FullName, $"{Files.DirectoryName}_{Files.Name}");
+                        });
+
+                        // 빈 폴더 삭제 여부
+                        if (ChkDeleteBlankFolder.Checked)
+                        {
+                            // 빈 폴더이면 삭제
+                            if (SubSubDirInfo.GetFiles().Length == 0)
+                            {
+                                SubSubDirInfo.Delete();
+                            }
+                        }
+                    });
+                });
+
+                Debug.WriteLine("Work End!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
