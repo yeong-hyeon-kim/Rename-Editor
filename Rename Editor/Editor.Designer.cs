@@ -66,12 +66,12 @@ namespace Rename_Editor
             this.text_Folder_Path = new System.Windows.Forms.TextBox();
             this.lbl_Folder_Path = new System.Windows.Forms.Label();
             this.Tab_Folder_Merge = new System.Windows.Forms.TabPage();
+            this.ChkDeleteBlankFolder = new System.Windows.Forms.CheckBox();
             this.ListMerge = new System.Windows.Forms.ListBox();
             this.BtnMergeFolder = new System.Windows.Forms.Button();
             this.BtnOpenMergeFolder = new System.Windows.Forms.Button();
             this.lbl_ParentFolder = new System.Windows.Forms.Label();
             this.TextParentFolderPath = new System.Windows.Forms.TextBox();
-            this.ChkDeleteBlankFolder = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.Tab_File_Rename.SuspendLayout();
             this.Tab_FileName_Edit.SuspendLayout();
@@ -302,7 +302,7 @@ namespace Rename_Editor
             this.Tab_FileName_Edit.Padding = new System.Windows.Forms.Padding(3);
             this.Tab_FileName_Edit.Size = new System.Drawing.Size(787, 263);
             this.Tab_FileName_Edit.TabIndex = 0;
-            this.Tab_FileName_Edit.Text = "이름 변경";
+            this.Tab_FileName_Edit.Text = "편집";
             this.Tab_FileName_Edit.UseVisualStyleBackColor = true;
             // 
             // rbtnIndexReplace
@@ -344,7 +344,7 @@ namespace Rename_Editor
             this.Tab_FileName_Copy.Padding = new System.Windows.Forms.Padding(3);
             this.Tab_FileName_Copy.Size = new System.Drawing.Size(787, 263);
             this.Tab_FileName_Copy.TabIndex = 1;
-            this.Tab_FileName_Copy.Text = "이름 복사";
+            this.Tab_FileName_Copy.Text = "복사";
             this.Tab_FileName_Copy.UseVisualStyleBackColor = true;
             // 
             // lbl_File_List
@@ -449,8 +449,20 @@ namespace Rename_Editor
             this.Tab_Folder_Merge.Name = "Tab_Folder_Merge";
             this.Tab_Folder_Merge.Size = new System.Drawing.Size(787, 263);
             this.Tab_Folder_Merge.TabIndex = 2;
-            this.Tab_Folder_Merge.Text = "폴더 병합";
+            this.Tab_Folder_Merge.Text = "병합";
             this.Tab_Folder_Merge.UseVisualStyleBackColor = true;
+            // 
+            // ChkDeleteBlankFolder
+            // 
+            this.ChkDeleteBlankFolder.AutoSize = true;
+            this.ChkDeleteBlankFolder.Checked = true;
+            this.ChkDeleteBlankFolder.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkDeleteBlankFolder.Location = new System.Drawing.Point(102, 55);
+            this.ChkDeleteBlankFolder.Name = "ChkDeleteBlankFolder";
+            this.ChkDeleteBlankFolder.Size = new System.Drawing.Size(94, 19);
+            this.ChkDeleteBlankFolder.TabIndex = 13;
+            this.ChkDeleteBlankFolder.Text = "빈 폴더 삭제";
+            this.ChkDeleteBlankFolder.UseVisualStyleBackColor = true;
             // 
             // ListMerge
             // 
@@ -497,24 +509,12 @@ namespace Rename_Editor
             this.TextParentFolderPath.Size = new System.Drawing.Size(542, 23);
             this.TextParentFolderPath.TabIndex = 0;
             // 
-            // ChkDeleteBlankFolder
-            // 
-            this.ChkDeleteBlankFolder.AutoSize = true;
-            this.ChkDeleteBlankFolder.Checked = true;
-            this.ChkDeleteBlankFolder.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ChkDeleteBlankFolder.Location = new System.Drawing.Point(102, 55);
-            this.ChkDeleteBlankFolder.Name = "ChkDeleteBlankFolder";
-            this.ChkDeleteBlankFolder.Size = new System.Drawing.Size(94, 19);
-            this.ChkDeleteBlankFolder.TabIndex = 13;
-            this.ChkDeleteBlankFolder.Text = "빈 폴더 삭제";
-            this.ChkDeleteBlankFolder.UseVisualStyleBackColor = true;
-            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(821, 382);
+            this.ClientSize = new System.Drawing.Size(823, 388);
             this.Controls.Add(this.lbl_status_cnt);
             this.Controls.Add(this.progbar_status);
             this.Controls.Add(this.Tab_File_Rename);
