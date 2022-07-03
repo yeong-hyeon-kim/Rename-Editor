@@ -28,7 +28,7 @@
 * ✔ OS : ![Windows](https://img.shields.io/badge/Windows-0078D6?style=flat-square&logo=Windows&logoColor=white)
   * 🕒 Version : `10 Pro 21H2`
 * ✔ Language : ![C#](https://img.shields.io/badge/CSharp-239120?style=flat-square&logo=CSharp&logoColor=white)
-* ✔ Framework : `.NET 5`
+* ✔ Framework : ![.NET](https://img.shields.io/badge/.NET-512BD4?style=flat-square&logo=.NET&logoColor=white")
 
 ## 📖 비고(Remark)
 ### 스냅샷(Snapshot)
