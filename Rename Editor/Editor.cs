@@ -18,17 +18,56 @@ namespace Rename_Editor
             InitializeComponent();
         }
 
-        #region ReName
+        private void BtnOpenCopyPath_Click(object sender, EventArgs e)
+        {
+            CreateCopyPathList();
+        }
+        private void BtnCopyNameExecution_Click(object sender, EventArgs e)
+        {
+            CopyFileName();
+        }
+        private void BtnMergeFolder_Click(object sender, EventArgs e)
+        {
+            MergeFolder();
+        }
+        private void BtnForceDelete_Click(object sender, EventArgs e)
+        {
+            DeleteForceFile();
+        }
+        private void BtnRenameExecution_Click(object sender, EventArgs e)
+        {
+            EditFileName();
+        }
+        private void BtnOpenMergeFolder_Click(object sender, EventArgs e)
+        {
+            string PathString = TextParentFolderPath.Text;
 
+            OpenDialog(out PathString);
+            TextParentFolderPath.Text = PathString;
+        }
         private void BtnOpenRenamePath_Click(object sender, EventArgs e)
         {
+            string PathString = txt_folder_pt.Text;
+
+            OpenDialog(out PathString);
+            txt_folder_pt.Text = PathString;
+        }
+
+        /// <summary>
+        /// 다이얼로그 열기
+        /// </summary>
+        /// <param name="sPath"></param>
+        private void OpenDialog(out string sPath)
+        {
+            string SelectedPath = string.Empty;
+
             try
             {
                 FbDialog.ShowDialog();
 
                 if (!string.IsNullOrEmpty(FbDialog.SelectedPath))
                 {
-                    txt_folder_pt.Text = FbDialog.SelectedPath;
+                    SelectedPath = FbDialog.SelectedPath;
                 }
             }
             catch (Exception ex)
@@ -36,8 +75,13 @@ namespace Rename_Editor
                 MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            sPath = SelectedPath;
         }
-        private void BtnRenameExecution_Click(object sender, EventArgs e)
+
+        /// <summary>
+        /// 파일 이름 수정
+        /// </summary>
+        private void EditFileName()
         {
             try
             {
@@ -55,7 +99,7 @@ namespace Rename_Editor
                     {
                         if (rbtnStringReplace.Checked)
                         {
-                            // 찾을려는 문자열을 대체 문자열로 교체합니다.
+                            // 자동 교체 모드 : 찾을려는 문자열을 대체 문자열로 교체합니다.
                             if (files.Name.Contains(txt_find_string.Text))
                             {
                                 try
@@ -74,23 +118,23 @@ namespace Rename_Editor
                             string ReplaceString = string.Empty;
                             ReplaceString = files.Name.Substring(Int32.Parse(txt_start_index.Text), Int32.Parse(txt_end_index.Text));
 
-                            // 특정 문자열 인덱스를 범위를 직접 조절하여 교체
+                            // 자동 교체 모드 : 특정 문자열 인덱스를 범위를 직접 조절하여 교체
                             File.Move(files.FullName, files.DirectoryName + "\\" + files.Name.Replace(ReplaceString, ""));
                         }
                     }
                     else if (rbtn_index_mode.Checked)
                     {
-                        // 지정한 문자열의 범위의 문자열을 파일명으로 수정합니다.
+                        // 인덱스 모드 : 지정한 문자열의 범위의 문자열을 파일명으로 수정합니다.
                         File.Move(files.FullName, files.DirectoryName + files.Name.Substring(Int32.Parse(txt_start_index.Text), Int32.Parse(txt_end_index.Text)));
                     }
                     else if (rbtn_remove_integer_mode.Checked)
                     {
-                        // 파일명에 포함된 숫자를 제거합니다.
+                        // 숫자 제거 모드 : 파일명에 포함된 숫자를 제거합니다.
                         File.Move(files.FullName, files.DirectoryName + Regex.Replace(files.Name.Substring(0, files.Name.Length - 4), @"\d", "") + files.Extension);
                     }
                     else if (rbtn_insert_mode.Checked)
                     {
-                        // 기존 파일명에 삽입할 문자열을 붙여 줍니다.
+                        // 삽입 모드 : 기존 파일명에 삽입할 문자열을 붙여 줍니다.
                         File.Move(files.FullName, files.DirectoryName + files.Name + txt_insert_string.Text);
                     }
                 }
@@ -101,11 +145,10 @@ namespace Rename_Editor
             }
         }
 
-        #endregion
-
-        #region CopyName
-
-        private void BtnOpenCopyPath_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 원본, 대상 파일 경로 리스트 작성
+        /// </summary>
+        private void CreateCopyPathList()
         {
             try
             {
@@ -143,7 +186,11 @@ namespace Rename_Editor
                 MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void BtnCopyNameExecution_Click(object sender, EventArgs e)
+
+        /// <summary>
+        /// 원본, 대상 파일 이름 복사
+        /// </summary>
+        private void CopyFileName()
         {
             try
             {
@@ -193,28 +240,13 @@ namespace Rename_Editor
             {
                 MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
-        #endregion
-
-        private void BtnOpenMergeFolder_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                FbDialog.ShowDialog();
-
-                if (!string.IsNullOrEmpty(FbDialog.SelectedPath))
-                {
-                    TextParentFolderPath.Text = FbDialog.SelectedPath;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void BtnMergeFolder_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 폴더 병합
+        /// </summary>
+        private void MergeFolder()
         {
             try
             {
@@ -258,6 +290,33 @@ namespace Rename_Editor
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// 사용 중인 파일 강제 삭제
+        /// </summary>
+        private void DeleteForceFile()
+        {
+            DialogResult dialogResult = MessageBox.Show("삭제하시겠습니까?", "확인", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            string FilePath = TextForceDeletePath.Text;
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                try
+                {
+                    if (File.Exists(FilePath))
+                    {
+                        GC.Collect();
+                        GC.WaitForPendingFinalizers();
+                        FileInfo f = new FileInfo(FilePath);
+                        f.Delete();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
